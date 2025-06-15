@@ -9,21 +9,23 @@ interface HeroSectionProps {
   isDark: boolean;
 }
 
-// Enhanced 3D Sphere Component with mouse interaction and color changing
+// Enhanced 3D Sphere Component with mouse interaction and professional color changing
 const InteractiveSphere = ({ mousePosition }: { mousePosition: { x: number; y: number } }) => {
   const meshRef = useRef<Mesh>(null);
   const [currentColorIndex, setCurrentColorIndex] = useState(0);
   
-  // Professional color palette
+  // Professional and eye-catching color palette
   const colors = [
-    '#6366f1', // Indigo
-    '#8b5cf6', // Violet
-    '#06b6d4', // Cyan
-    '#10b981', // Emerald
-    '#f59e0b', // Amber
-    '#ef4444', // Red
-    '#ec4899', // Pink
-    '#84cc16', // Lime
+    '#3B82F6', // Blue
+    '#8B5CF6', // Purple
+    '#06B6D4', // Cyan
+    '#10B981', // Emerald
+    '#F59E0B', // Amber
+    '#EF4444', // Red
+    '#EC4899', // Pink
+    '#84CC16', // Lime
+    '#6366F1', // Indigo
+    '#14B8A6', // Teal
   ];
 
   useEffect(() => {
@@ -99,6 +101,21 @@ const HeroSection = ({ isDark }: HeroSectionProps) => {
     "Technology Innovation Leader"
   ];
 
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleContactClick = () => {
+    scrollToSection('contact');
+  };
+
+  const handlePortfolioClick = () => {
+    scrollToSection('projects');
+  };
+
   return (
     <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden">
       {/* Enhanced 3D Background */}
@@ -134,7 +151,7 @@ const HeroSection = ({ isDark }: HeroSectionProps) => {
             transition={{ delay: 0.8, duration: 0.8 }}
             className="text-6xl md:text-8xl font-bold mb-8 tracking-tight"
           >
-            Professional Portfolio
+            RAVI RAYA
           </motion.h1>
 
           {/* Enhanced Typewriter Effect */}
@@ -147,17 +164,23 @@ const HeroSection = ({ isDark }: HeroSectionProps) => {
             <TypewriterEffect texts={profileTexts} isDark={isDark} />
           </motion.div>
 
-          {/* Professional CTA Buttons */}
+          {/* Functional CTA Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.8, duration: 0.8 }}
             className="flex flex-col sm:flex-row gap-6 justify-center"
           >
-            <button className={`px-10 py-4 rounded-full border-2 text-lg font-medium transition-all duration-500 transform hover:scale-105 ${isDark ? 'border-white text-white hover:bg-white hover:text-black hover:shadow-2xl hover:shadow-white/30' : 'border-black text-black hover:bg-black hover:text-white hover:shadow-2xl hover:shadow-black/30'}`}>
+            <button 
+              onClick={handlePortfolioClick}
+              className={`px-10 py-4 rounded-full border-2 text-lg font-medium transition-all duration-500 transform hover:scale-105 ${isDark ? 'border-white text-white hover:bg-white hover:text-black hover:shadow-2xl hover:shadow-white/30' : 'border-black text-black hover:bg-black hover:text-white hover:shadow-2xl hover:shadow-black/30'}`}
+            >
               Explore My Portfolio
             </button>
-            <button className={`px-10 py-4 rounded-full text-lg font-medium transition-all duration-500 transform hover:scale-105 ${isDark ? 'bg-white text-black hover:bg-gray-200 hover:shadow-2xl hover:shadow-white/30' : 'bg-black text-white hover:bg-gray-800 hover:shadow-2xl hover:shadow-black/30'}`}>
+            <button 
+              onClick={handleContactClick}
+              className={`px-10 py-4 rounded-full text-lg font-medium transition-all duration-500 transform hover:scale-105 ${isDark ? 'bg-white text-black hover:bg-gray-200 hover:shadow-2xl hover:shadow-white/30' : 'bg-black text-white hover:bg-gray-800 hover:shadow-2xl hover:shadow-black/30'}`}
+            >
               Professional Contact
             </button>
           </motion.div>
