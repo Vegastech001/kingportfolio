@@ -9,9 +9,30 @@ interface HeroSectionProps {
   isDark: boolean;
 }
 
-// Enhanced 3D Sphere Component with mouse interaction
+// Enhanced 3D Sphere Component with mouse interaction and color changing
 const InteractiveSphere = ({ mousePosition }: { mousePosition: { x: number; y: number } }) => {
   const meshRef = useRef<Mesh>(null);
+  const [currentColorIndex, setCurrentColorIndex] = useState(0);
+  
+  // Professional color palette
+  const colors = [
+    '#6366f1', // Indigo
+    '#8b5cf6', // Violet
+    '#06b6d4', // Cyan
+    '#10b981', // Emerald
+    '#f59e0b', // Amber
+    '#ef4444', // Red
+    '#ec4899', // Pink
+    '#84cc16', // Lime
+  ];
+
+  useEffect(() => {
+    const colorInterval = setInterval(() => {
+      setCurrentColorIndex((prev) => (prev + 1) % colors.length);
+    }, 3000);
+
+    return () => clearInterval(colorInterval);
+  }, []);
 
   useFrame((state) => {
     if (meshRef.current) {
@@ -28,10 +49,10 @@ const InteractiveSphere = ({ mousePosition }: { mousePosition: { x: number; y: n
     <mesh ref={meshRef} scale={[1.5, 1.5, 1.5]}>
       <icosahedronGeometry args={[1, 2]} />
       <meshStandardMaterial 
-        color="#ffffff" 
+        color={colors[currentColorIndex]}
         wireframe={true}
         transparent={true}
-        opacity={0.4}
+        opacity={0.6}
       />
     </mesh>
   );
@@ -125,21 +146,6 @@ const HeroSection = ({ isDark }: HeroSectionProps) => {
           >
             <TypewriterEffect texts={profileTexts} isDark={isDark} />
           </motion.div>
-
-          {/* Professional Description */}
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.5, duration: 0.8 }}
-            className="text-xl md:text-2xl max-w-4xl mx-auto leading-relaxed mb-12 font-light"
-          >
-            Experienced Network Infrastructure Engineer with over 3 years of expertise in 
-            enterprise-level network architecture, artificial intelligence integration, and 
-            full-stack development. Specialized in Python, C, Java programming languages 
-            with comprehensive knowledge of IoT ecosystems and emerging technologies. 
-            Passionate about leveraging cutting-edge AI solutions and maintaining a 
-            commitment to continuous professional development.
-          </motion.p>
 
           {/* Professional CTA Buttons */}
           <motion.div

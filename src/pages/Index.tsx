@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Moon, Sun } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import HeroSection from '@/components/HeroSection';
+import AboutSection from '@/components/AboutSection';
 import ExperienceSection from '@/components/ExperienceSection';
 import EducationSection from '@/components/EducationSection';
 import ProjectsSection from '@/components/ProjectsSection';
@@ -44,6 +45,7 @@ const Index = () => {
       {/* Main Content */}
       <main className="relative">
         <HeroSection isDark={isDark} />
+        <AboutSection isDark={isDark} />
         <ExperienceSection isDark={isDark} />
         <EducationSection isDark={isDark} />
         <ProjectsSection isDark={isDark} />

@@ -11,6 +11,7 @@ const Navigation = ({ isDark }: NavigationProps) => {
 
   const navItems = [
     { id: 'hero', label: 'Home' },
+    { id: 'about', label: 'About' },
     { id: 'experience', label: 'Experience' },
     { id: 'education', label: 'Education' },
     { id: 'projects', label: 'Projects' },
