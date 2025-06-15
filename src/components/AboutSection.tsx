@@ -15,7 +15,7 @@ const TypewriterText = ({ text, delay = 0, isDark }: { text: string; delay?: num
       const timeout = setTimeout(() => {
         setDisplayedText(prev => prev + text[currentIndex]);
         setCurrentIndex(prev => prev + 1);
-      }, 50 + delay);
+      }, 30 + delay);
 
       return () => clearTimeout(timeout);
     }
@@ -105,7 +105,7 @@ const AboutSection = ({ isDark }: AboutSectionProps) => {
                     <p>
                       <TypewriterText
                         text="Specialized in Python, C, Java programming languages with comprehensive knowledge of IoT ecosystems and emerging technologies. Passionate about leveraging cutting-edge AI solutions and maintaining a commitment to continuous professional development."
-                        delay={3000}
+                        delay={0}
                         isDark={isDark}
                       />
                     </p>
@@ -120,7 +120,7 @@ const AboutSection = ({ isDark }: AboutSectionProps) => {
                     <p>
                       <TypewriterText
                         text="I excel in AI prompting, rapid learning, and technology innovation. My expertise spans from network security implementations to machine learning model deployment, consistently delivering scalable solutions that drive business growth."
-                        delay={6000}
+                        delay={0}
                         isDark={isDark}
                       />
                     </p>
