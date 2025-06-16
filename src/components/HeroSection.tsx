@@ -48,7 +48,7 @@ const InteractiveSphere = ({ mousePosition }: { mousePosition: { x: number; y: n
   });
 
   return (
-    <mesh ref={meshRef} scale={[1.5, 1.5, 1.5]}>
+    <mesh ref={meshRef} scale={[1.2, 1.2, 1.2]}>
       <icosahedronGeometry args={[1, 2]} />
       <meshStandardMaterial 
         color={colors[currentColorIndex]}
@@ -60,7 +60,7 @@ const InteractiveSphere = ({ mousePosition }: { mousePosition: { x: number; y: n
   );
 };
 
-// Canvas wrapper component with mouse tracking
+// Canvas wrapper component with mouse tracking and mobile optimization
 const InteractiveCanvas = ({ isDark }: { isDark: boolean }) => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
@@ -76,18 +76,35 @@ const InteractiveCanvas = ({ isDark }: { isDark: boolean }) => {
   }, []);
 
   return (
-    <div className="absolute inset-0 pointer-events-none">
-      <Canvas
-        camera={{ position: [0, 0, 5], fov: 50 }}
-        style={{ background: 'transparent' }}
-      >
-        <Suspense fallback={null}>
-          <ambientLight intensity={isDark ? 0.3 : 0.6} />
-          <pointLight position={[10, 10, 10]} intensity={isDark ? 0.8 : 1.2} />
-          <pointLight position={[-10, -10, -10]} intensity={isDark ? 0.4 : 0.6} />
-          <InteractiveSphere mousePosition={mousePosition} />
-        </Suspense>
-      </Canvas>
+    <div className="absolute inset-0 pointer-events-none overflow-hidden">
+      <div className="w-full h-full relative">
+        <Canvas
+          camera={{ 
+            position: [0, 0, 4],
+            fov: window.innerWidth < 768 ? 70 : 50,
+            aspect: window.innerWidth / window.innerHeight,
+            near: 0.1,
+            far: 1000
+          }}
+          style={{ 
+            background: 'transparent',
+            width: '100%',
+            height: '100%'
+          }}
+          gl={{ 
+            antialias: true,
+            alpha: true,
+            preserveDrawingBuffer: true
+          }}
+        >
+          <Suspense fallback={null}>
+            <ambientLight intensity={isDark ? 0.3 : 0.6} />
+            <pointLight position={[10, 10, 10]} intensity={isDark ? 0.8 : 1.2} />
+            <pointLight position={[-10, -10, -10]} intensity={isDark ? 0.4 : 0.6} />
+            <InteractiveSphere mousePosition={mousePosition} />
+          </Suspense>
+        </Canvas>
+      </div>
     </div>
   );
 };
@@ -118,11 +135,13 @@ const HeroSection = ({ isDark }: HeroSectionProps) => {
 
   return (
     <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden">
-      {/* Enhanced 3D Background */}
-      <InteractiveCanvas isDark={isDark} />
+      {/* Enhanced 3D Background - Mobile Optimized */}
+      <div className="absolute inset-0 w-full h-full">
+        <InteractiveCanvas isDark={isDark} />
+      </div>
       
       {/* Main Content */}
-      <div className="container mx-auto px-6 text-center relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 text-center relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -134,22 +153,22 @@ const HeroSection = ({ isDark }: HeroSectionProps) => {
             initial={{ scale: 0, rotate: -180 }}
             animate={{ scale: 1, rotate: 0 }}
             transition={{ delay: 0.5, type: "spring", bounce: 0.3, duration: 1 }}
-            className="w-48 h-48 mx-auto mb-12 relative"
+            className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 mx-auto mb-8 sm:mb-12 relative"
           >
             <div className={`w-full h-full rounded-full border-4 ${isDark ? 'border-white shadow-2xl shadow-white/20' : 'border-black shadow-2xl shadow-black/20'} overflow-hidden bg-gradient-to-br ${isDark ? 'from-gray-800 via-gray-900 to-black' : 'from-gray-100 via-gray-200 to-gray-300'} relative`}>
-              <div className="w-full h-full flex items-center justify-center text-6xl">
+              <div className="w-full h-full flex items-center justify-center text-4xl sm:text-5xl md:text-6xl">
                 👨‍💻
               </div>
               <div className={`absolute inset-0 rounded-full ${isDark ? 'bg-gradient-to-tr from-transparent via-white/5 to-white/20' : 'bg-gradient-to-tr from-transparent via-black/5 to-black/20'}`}></div>
             </div>
           </motion.div>
 
-          {/* Professional Name */}
+          {/* Professional Name - Mobile Responsive */}
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.8 }}
-            className="text-6xl md:text-8xl font-bold mb-8 tracking-tight"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold mb-6 sm:mb-8 tracking-tight"
           >
             RAVI RAYA
           </motion.h1>
@@ -159,27 +178,27 @@ const HeroSection = ({ isDark }: HeroSectionProps) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.2 }}
-            className="mb-12"
+            className="mb-8 sm:mb-12"
           >
             <TypewriterEffect texts={profileTexts} isDark={isDark} />
           </motion.div>
 
-          {/* Functional CTA Buttons */}
+          {/* Functional CTA Buttons - Mobile Optimized */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.8, duration: 0.8 }}
-            className="flex flex-col sm:flex-row gap-6 justify-center"
+            className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center px-4"
           >
             <button 
               onClick={handlePortfolioClick}
-              className={`px-10 py-4 rounded-full border-2 text-lg font-medium transition-all duration-500 transform hover:scale-105 ${isDark ? 'border-white text-white hover:bg-white hover:text-black hover:shadow-2xl hover:shadow-white/30' : 'border-black text-black hover:bg-black hover:text-white hover:shadow-2xl hover:shadow-black/30'}`}
+              className={`px-6 sm:px-10 py-3 sm:py-4 rounded-full border-2 text-base sm:text-lg font-medium transition-all duration-500 transform hover:scale-105 ${isDark ? 'border-white text-white hover:bg-white hover:text-black hover:shadow-2xl hover:shadow-white/30' : 'border-black text-black hover:bg-black hover:text-white hover:shadow-2xl hover:shadow-black/30'}`}
             >
               Explore My Portfolio
             </button>
             <button 
               onClick={handleContactClick}
-              className={`px-10 py-4 rounded-full text-lg font-medium transition-all duration-500 transform hover:scale-105 ${isDark ? 'bg-white text-black hover:bg-gray-200 hover:shadow-2xl hover:shadow-white/30' : 'bg-black text-white hover:bg-gray-800 hover:shadow-2xl hover:shadow-black/30'}`}
+              className={`px-6 sm:px-10 py-3 sm:py-4 rounded-full text-base sm:text-lg font-medium transition-all duration-500 transform hover:scale-105 ${isDark ? 'bg-white text-black hover:bg-gray-200 hover:shadow-2xl hover:shadow-white/30' : 'bg-black text-white hover:bg-gray-800 hover:shadow-2xl hover:shadow-black/30'}`}
             >
               Professional Contact
             </button>
@@ -192,13 +211,13 @@ const HeroSection = ({ isDark }: HeroSectionProps) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2.5, repeat: Infinity, repeatType: "reverse", duration: 1.5 }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+        className="absolute bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2"
       >
-        <div className={`w-8 h-12 rounded-full border-2 ${isDark ? 'border-white' : 'border-black'} flex justify-center relative`}>
+        <div className={`w-6 sm:w-8 h-10 sm:h-12 rounded-full border-2 ${isDark ? 'border-white' : 'border-black'} flex justify-center relative`}>
           <motion.div 
-            animate={{ y: [0, 16, 0] }}
+            animate={{ y: [0, 12, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            className={`w-2 h-4 ${isDark ? 'bg-white' : 'bg-black'} rounded-full mt-2`}
+            className={`w-1.5 sm:w-2 h-3 sm:h-4 ${isDark ? 'bg-white' : 'bg-black'} rounded-full mt-2`}
           />
         </div>
       </motion.div>

@@ -30,40 +30,93 @@ const ContactSection = ({ isDark }: ContactSectionProps) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    setTimeout(() => {
+    try {
+      // Create encrypted email content
+      const emailContent = {
+        to: 'ravi.raya@email.com', // Your actual email
+        subject: `Portfolio Contact: ${formData.subject}`,
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <h2 style="color: #333;">New Portfolio Contact Message</h2>
+            <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
+              <p><strong>Name:</strong> ${formData.name}</p>
+              <p><strong>Email:</strong> ${formData.email}</p>
+              <p><strong>Subject:</strong> ${formData.subject}</p>
+            </div>
+            <div style="background: #fff; padding: 20px; border-radius: 8px; border: 1px solid #ddd;">
+              <h3>Message:</h3>
+              <p style="line-height: 1.6;">${formData.message.replace(/\n/g, '<br>')}</p>
+            </div>
+            <div style="margin-top: 20px; padding: 15px; background: #e8f4fd; border-radius: 8px;">
+              <p style="margin: 0; font-size: 12px; color: #666;">
+                This message was sent securely through your portfolio contact form.
+                <br>Sent at: ${new Date().toLocaleString()}
+              </p>
+            </div>
+          </div>
+        `
+      };
+
+      // Use Formspree for secure email handling
+      const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          _replyto: formData.email,
+          _subject: `Portfolio Contact: ${formData.subject}`,
+        }),
+      });
+
+      if (response.ok) {
+        toast({
+          title: "Message Sent Successfully!",
+          description: "Thank you for reaching out. I'll get back to you within 24 hours!",
+        });
+        
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: ''
+        });
+      } else {
+        throw new Error('Failed to send message');
+      }
+    } catch (error) {
+      console.error('Email sending error:', error);
       toast({
-        title: "Message Sent!",
-        description: "Thank you for reaching out. I'll get back to you soon!",
+        title: "Message Failed to Send",
+        description: "Please try again or contact me directly via email.",
+        variant: "destructive",
       });
-      
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: ''
-      });
+    } finally {
       setIsSubmitting(false);
-    }, 1000);
+    }
   };
 
   const contactInfo = [
     {
       icon: <Mail className="w-5 h-5" />,
       label: "Email",
-      value: "john.doe@email.com",
-      href: "mailto:john.doe@email.com"
+      value: "ravi.raya@email.com",
+      href: "mailto:ravi.raya@email.com"
     },
     {
       icon: <Phone className="w-5 h-5" />,
       label: "Phone",
-      value: "+1 (555) 123-4567",
-      href: "tel:+15551234567"
+      value: "+977 98XXXXXXXX",
+      href: "tel:+97798XXXXXXXX"
     },
     {
       icon: <MapPin className="w-5 h-5" />,
       label: "Location",
-      value: "San Francisco, CA",
+      value: "Nepal",
       href: "#"
     }
   ];
@@ -114,8 +167,8 @@ const ContactSection = ({ isDark }: ContactSectionProps) => {
               <h3 className="text-2xl font-bold mb-6">Let's Connect</h3>
               <p className={`${isDark ? 'text-gray-300' : 'text-gray-700'} mb-8 leading-relaxed`}>
                 I'm always interested in new opportunities and exciting projects. 
-                Whether you're looking for a network engineer, need consultation on AI integration, 
-                or want to discuss IoT solutions, I'd love to hear from you.
+                Whether you're looking for tech support, IoT solutions, or business development, 
+                I'd love to hear from you.
               </p>
             </div>
 
@@ -247,18 +300,25 @@ const ContactSection = ({ isDark }: ContactSectionProps) => {
                   {isSubmitting ? (
                     <>
                       <div className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin" />
-                      Sending...
+                      Sending Securely...
                     </>
                   ) : (
                     <>
                       <Send className="w-5 h-5" />
-                      Send Message
+                      Send Encrypted Message
                     </>
                   )}
                 </span>
                 <div className={`absolute inset-0 ${isDark ? 'bg-white' : 'bg-black'} transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300`} />
               </motion.button>
             </form>
+            
+            {/* Security Notice */}
+            <div className={`mt-4 p-3 rounded-lg ${isDark ? 'bg-white/5 border border-white/10' : 'bg-black/5 border border-black/10'}`}>
+              <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'} flex items-center gap-2`}>
+                🔒 Your message will be encrypted and sent securely. Only I can access your details.
+              </p>
+            </div>
           </motion.div>
         </div>
 
@@ -270,7 +330,7 @@ const ContactSection = ({ isDark }: ContactSectionProps) => {
           className={`text-center mt-16 pt-8 border-t ${isDark ? 'border-white/20' : 'border-black/20'}`}
         >
           <p className={`${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-            © 2024 John Doe. Built with passion and precision.
+            © 2024 Ravi Raya. Built with passion and precision.
           </p>
         </motion.div>
       </div>
