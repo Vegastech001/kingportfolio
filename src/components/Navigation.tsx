@@ -1,13 +1,14 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Moon, Sun } from 'lucide-react';
 
 interface NavigationProps {
   isDark: boolean;
+  onThemeToggle: () => void;
 }
 
-const Navigation = ({ isDark }: NavigationProps) => {
+const Navigation = ({ isDark, onThemeToggle }: NavigationProps) => {
   const [activeSection, setActiveSection] = useState('hero');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -42,7 +43,7 @@ const Navigation = ({ isDark }: NavigationProps) => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
-      setIsMobileMenuOpen(false); // Close mobile menu after navigation
+      setIsMobileMenuOpen(false);
     }
   };
 
@@ -96,14 +97,27 @@ const Navigation = ({ isDark }: NavigationProps) => {
           <h1 className={`text-lg font-bold ${isDark ? 'text-white' : 'text-black'}`}>
             RAVI RAYA
           </h1>
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className={`p-2 rounded-md transition-colors ${
-              isDark ? 'text-white hover:bg-white/10' : 'text-black hover:bg-black/10'
-            }`}
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          <div className="flex items-center space-x-2">
+            {/* Theme Toggle in Header */}
+            <motion.button
+              whileTap={{ scale: 0.9 }}
+              onClick={onThemeToggle}
+              className={`p-2 rounded-md transition-all duration-300 ${
+                isDark ? 'text-white hover:bg-white/10' : 'text-black hover:bg-black/10'
+              }`}
+            >
+              {isDark ? <Sun size={20} /> : <Moon size={20} />}
+            </motion.button>
+            {/* Hamburger Menu */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className={`p-2 rounded-md transition-colors ${
+                isDark ? 'text-white hover:bg-white/10' : 'text-black hover:bg-black/10'
+              }`}
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </motion.div>
 
@@ -136,6 +150,21 @@ const Navigation = ({ isDark }: NavigationProps) => {
                   {item.label}
                 </button>
               ))}
+              
+              {/* Theme Toggle in Menu */}
+              <div className={`border-t ${isDark ? 'border-white/10' : 'border-black/10'} pt-2 mt-2`}>
+                <button
+                  onClick={onThemeToggle}
+                  className={`w-full text-left px-4 py-3 rounded-md transition-all duration-300 flex items-center space-x-3 ${
+                    isDark 
+                      ? 'text-gray-400 hover:text-white hover:bg-white/5' 
+                      : 'text-gray-600 hover:text-black hover:bg-black/5'
+                  }`}
+                >
+                  {isDark ? <Sun size={20} /> : <Moon size={20} />}
+                  <span>{isDark ? 'Light Mode' : 'Dark Mode'}</span>
+                </button>
+              </div>
             </div>
           </motion.div>
         )}

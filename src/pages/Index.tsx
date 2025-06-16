@@ -23,11 +23,11 @@ const Index = () => {
 
   return (
     <div className={`min-h-screen transition-colors duration-500 ${isDark ? 'dark bg-black text-white' : 'bg-white text-black'}`}>
-      {/* Theme Toggle */}
+      {/* Desktop Theme Toggle - only show on large screens */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="fixed top-6 right-6 z-50 lg:block hidden"
+        className="fixed top-6 right-6 z-50 hidden lg:block"
       >
         <Button
           onClick={toggleTheme}
@@ -39,24 +39,8 @@ const Index = () => {
         </Button>
       </motion.div>
 
-      {/* Mobile Theme Toggle */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="fixed top-3 right-16 z-50 lg:hidden"
-      >
-        <Button
-          onClick={toggleTheme}
-          variant="outline"
-          size="sm"
-          className="bg-transparent border-current hover:bg-current/10 transition-all duration-300"
-        >
-          {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-        </Button>
-      </motion.div>
-
-      {/* Navigation */}
-      <Navigation isDark={isDark} />
+      {/* Navigation with theme toggle integrated for mobile */}
+      <Navigation isDark={isDark} onThemeToggle={toggleTheme} />
 
       {/* Main Content with proper mobile spacing */}
       <main className="relative pt-0 lg:pt-0">
