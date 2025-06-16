@@ -1,6 +1,7 @@
 
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X } from 'lucide-react';
 
 interface NavigationProps {
   isDark: boolean;
@@ -8,6 +9,7 @@ interface NavigationProps {
 
 const Navigation = ({ isDark }: NavigationProps) => {
   const [activeSection, setActiveSection] = useState('hero');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navItems = [
     { id: 'hero', label: 'Home' },
@@ -40,14 +42,16 @@ const Navigation = ({ isDark }: NavigationProps) => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
+      setIsMobileMenuOpen(false); // Close mobile menu after navigation
     }
   };
 
-  return (
+  // Desktop Navigation (left sidebar)
+  const DesktopNav = () => (
     <motion.nav
       initial={{ opacity: 0, y: -50 }}
       animate={{ opacity: 1, y: 0 }}
-      className="fixed top-6 left-6 z-50"
+      className="fixed top-6 left-6 z-50 hidden lg:block"
     >
       <div className="flex flex-col space-y-2">
         {navItems.map((item, index) => (
@@ -75,6 +79,75 @@ const Navigation = ({ isDark }: NavigationProps) => {
         ))}
       </div>
     </motion.nav>
+  );
+
+  // Mobile Navigation (top bar with hamburger)
+  const MobileNav = () => (
+    <>
+      {/* Mobile Header */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className={`fixed top-0 left-0 right-0 z-50 lg:hidden ${
+          isDark ? 'bg-black/90 backdrop-blur-md border-white/10' : 'bg-white/90 backdrop-blur-md border-black/10'
+        } border-b`}
+      >
+        <div className="flex items-center justify-between px-4 py-3">
+          <h1 className={`text-lg font-bold ${isDark ? 'text-white' : 'text-black'}`}>
+            RAVI RAYA
+          </h1>
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className={`p-2 rounded-md transition-colors ${
+              isDark ? 'text-white hover:bg-white/10' : 'text-black hover:bg-black/10'
+            }`}
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+      </motion.div>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className={`fixed top-16 left-0 right-0 z-40 lg:hidden ${
+              isDark ? 'bg-black/95 backdrop-blur-md border-white/10' : 'bg-white/95 backdrop-blur-md border-black/10'
+            } border-b shadow-lg`}
+          >
+            <div className="px-4 py-2 space-y-1">
+              {navItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className={`w-full text-left px-4 py-3 rounded-md transition-all duration-300 ${
+                    activeSection === item.id
+                      ? isDark 
+                        ? 'text-white bg-white/10 border border-white/20' 
+                        : 'text-black bg-black/10 border border-black/20'
+                      : isDark 
+                        ? 'text-gray-400 hover:text-white hover:bg-white/5' 
+                        : 'text-gray-600 hover:text-black hover:bg-black/5'
+                  }`}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+
+  return (
+    <>
+      <DesktopNav />
+      <MobileNav />
+    </>
   );
 };
 

@@ -27,7 +27,7 @@ const Index = () => {
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="fixed top-6 right-6 z-50"
+        className="fixed top-6 right-6 z-50 lg:block hidden"
       >
         <Button
           onClick={toggleTheme}
@@ -39,11 +39,30 @@ const Index = () => {
         </Button>
       </motion.div>
 
+      {/* Mobile Theme Toggle */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="fixed top-3 right-16 z-50 lg:hidden"
+      >
+        <Button
+          onClick={toggleTheme}
+          variant="outline"
+          size="sm"
+          className="bg-transparent border-current hover:bg-current/10 transition-all duration-300"
+        >
+          {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+        </Button>
+      </motion.div>
+
       {/* Navigation */}
       <Navigation isDark={isDark} />
 
-      {/* Main Content */}
-      <main className="relative">
+      {/* Main Content with proper mobile spacing */}
+      <main className="relative pt-0 lg:pt-0">
+        {/* Mobile spacing div */}
+        <div className="lg:hidden h-16"></div>
+        
         <HeroSection isDark={isDark} />
         <AboutSection isDark={isDark} />
         <ExperienceSection isDark={isDark} />
