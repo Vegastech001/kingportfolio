@@ -1,4 +1,3 @@
-
 import { motion } from 'framer-motion';
 import { Briefcase, Calendar, MapPin } from 'lucide-react';
 
@@ -9,39 +8,42 @@ interface ExperienceSectionProps {
 const ExperienceSection = ({ isDark }: ExperienceSectionProps) => {
   const experiences = [
     {
-      title: "Senior Network Engineer",
-      company: "TechCorp Solutions",
-      period: "2022 - Present",
-      location: "San Francisco, CA",
+      title: "Tech Officer",
+      company: "Vegas Recreation Nepal Pvt. Ltd.",
+      period: "2023 - Present",
+      location: "Nepal",
       description: [
-        "Led network infrastructure redesign improving system performance by 40%",
-        "Implemented AI-driven network monitoring solutions",
-        "Managed IoT device integration across enterprise networks",
-        "Mentored junior engineers and established best practices"
+        "Oversee IoT devices installation, maintenance and servicing",
+        "Provide comprehensive IT tech support for all systems",
+        "Manage and maintain surveillance systems infrastructure",
+        "Handle slot machines technical operations and troubleshooting",
+        "Design and implement networking solutions for gaming operations"
       ]
     },
     {
-      title: "Network Engineer",
-      company: "DataFlow Networks",
+      title: "Business Owner & Leader",
+      company: "Rejico (E-commerce Business)",
+      period: "2022 - 2023",
+      location: "Nepal",
+      description: [
+        "Founded and led e-commerce dropshipping business with 5-member team",
+        "Developed and executed digital marketing strategies and campaigns",
+        "Managed SEO optimization to improve online visibility and sales",
+        "Created targeted advertisements across multiple platforms",
+        "Handled customer service operations and team coordination"
+      ]
+    },
+    {
+      title: "Technical Support Specialist",
+      company: "Bilo Computer Sales and Suppliers",
       period: "2021 - 2022",
-      location: "Austin, TX",
+      location: "Nepal",
       description: [
-        "Designed and deployed scalable network architectures",
-        "Automated network configuration using Python scripts",
-        "Reduced network downtime by 60% through proactive monitoring",
-        "Collaborated with cross-functional teams on IoT projects"
-      ]
-    },
-    {
-      title: "Junior Network Engineer",
-      company: "ConnectTech Ltd",
-      period: "2020 - 2021",
-      location: "Remote",
-      description: [
-        "Assisted in network troubleshooting and maintenance",
-        "Developed network documentation and procedures",
-        "Supported IoT device connectivity and security protocols",
-        "Gained expertise in AI-assisted network optimization"
+        "Provided comprehensive after-sales technical support to customers",
+        "Resolved customer inquiries and technical issues efficiently",
+        "Delivered various tech-related services and solutions",
+        "Maintained customer satisfaction through effective problem-solving",
+        "Built expertise in computer hardware and software troubleshooting"
       ]
     }
   ];
