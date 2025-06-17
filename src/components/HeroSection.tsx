@@ -1,3 +1,4 @@
+
 import { motion } from 'framer-motion';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Suspense, useRef, useState, useEffect } from 'react';
@@ -47,13 +48,13 @@ const InteractiveSphere = ({ mousePosition }: { mousePosition: { x: number; y: n
   });
 
   return (
-    <mesh ref={meshRef} scale={[1.5, 1.5, 1.5]}>
+    <mesh ref={meshRef} scale={[2, 2, 2]}>
       <icosahedronGeometry args={[1, 2]} />
       <meshStandardMaterial 
         color={colors[currentColorIndex]}
         wireframe={true}
         transparent={true}
-        opacity={0.7}
+        opacity={0.8}
       />
     </mesh>
   );
