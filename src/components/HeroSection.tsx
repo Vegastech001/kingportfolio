@@ -48,13 +48,13 @@ const InteractiveSphere = ({ mousePosition }: { mousePosition: { x: number; y: n
   });
 
   return (
-    <mesh ref={meshRef} scale={[1.2, 1.2, 1.2]}>
+    <mesh ref={meshRef} scale={[2, 2, 2]}>
       <icosahedronGeometry args={[1, 2]} />
       <meshStandardMaterial 
         color={colors[currentColorIndex]}
         wireframe={true}
         transparent={true}
-        opacity={0.6}
+        opacity={0.8}
       />
     </mesh>
   );
@@ -81,7 +81,7 @@ const InteractiveCanvas = ({ isDark }: { isDark: boolean }) => {
         <Canvas
           camera={{ 
             position: [0, 0, 4],
-            fov: 50,
+            fov: 75,
             aspect: window.innerWidth / window.innerHeight,
             near: 0.1,
             far: 1000
@@ -98,9 +98,9 @@ const InteractiveCanvas = ({ isDark }: { isDark: boolean }) => {
           }}
         >
           <Suspense fallback={null}>
-            <ambientLight intensity={isDark ? 0.3 : 0.6} />
-            <pointLight position={[10, 10, 10]} intensity={isDark ? 0.8 : 1.2} />
-            <pointLight position={[-10, -10, -10]} intensity={isDark ? 0.4 : 0.6} />
+            <ambientLight intensity={isDark ? 0.5 : 0.8} />
+            <pointLight position={[10, 10, 10]} intensity={isDark ? 1.0 : 1.5} />
+            <pointLight position={[-10, -10, -10]} intensity={isDark ? 0.6 : 0.8} />
             <InteractiveSphere mousePosition={mousePosition} />
           </Suspense>
         </Canvas>
