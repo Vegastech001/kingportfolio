@@ -60,7 +60,7 @@ const InteractiveSphere = ({ mousePosition }: { mousePosition: { x: number; y: n
   );
 };
 
-// Canvas wrapper component with mouse tracking and mobile optimization
+// Canvas wrapper component with mouse tracking
 const InteractiveCanvas = ({ isDark }: { isDark: boolean }) => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
@@ -81,7 +81,7 @@ const InteractiveCanvas = ({ isDark }: { isDark: boolean }) => {
         <Canvas
           camera={{ 
             position: [0, 0, 4],
-            fov: window.innerWidth < 768 ? 70 : 50,
+            fov: 50,
             aspect: window.innerWidth / window.innerHeight,
             near: 0.1,
             far: 1000
@@ -135,7 +135,7 @@ const HeroSection = ({ isDark }: HeroSectionProps) => {
 
   return (
     <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden">
-      {/* Enhanced 3D Background - Mobile Optimized */}
+      {/* Enhanced 3D Background */}
       <div className="absolute inset-0 w-full h-full">
         <InteractiveCanvas isDark={isDark} />
       </div>
