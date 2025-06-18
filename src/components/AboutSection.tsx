@@ -141,38 +141,28 @@ const AboutSection = ({ isDark }: AboutSectionProps) => {
                 
                 <div className="space-y-6">
                   {[
-                    { skill: 'Network Infrastructure', level: 95, icon: '🌐' },
-                    { skill: 'AI & Machine Learning', level: 90, icon: '🤖' },
-                    { skill: 'Python Development', level: 88, icon: '🐍' },
-                    { skill: 'IoT Solutions', level: 85, icon: '📡' },
-                    { skill: 'Java Programming', level: 82, icon: '☕' },
-                    { skill: 'C Programming', level: 80, icon: '⚡' },
+                    { skill: 'Network Infrastructure Engineering', icon: '🌐', description: 'Enterprise-level network architecture and security implementations' },
+                    { skill: 'AI & Machine Learning', icon: '🤖', description: 'Model development, deployment, and AI solution integration' },
+                    { skill: 'Full-Stack Python Development', icon: '🐍', description: 'Web applications, APIs, and data processing systems' },
+                    { skill: 'IoT Solutions Architecture', icon: '📡', description: 'Connected device ecosystems and smart technology integration' },
+                    { skill: 'Java Enterprise Development', icon: '☕', description: 'Scalable applications and enterprise software solutions' },
+                    { skill: 'Systems Programming in C', icon: '⚡', description: 'Low-level programming and performance optimization' },
                   ].map((item, index) => (
                     <motion.div
                       key={item.skill}
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.8 + index * 0.1, duration: 0.6 }}
-                      className={`p-4 rounded-xl border ${isDark ? 'border-white/5 bg-white/5' : 'border-black/5 bg-black/5'} hover:scale-105 transition-all duration-300`}
+                      className={`p-6 rounded-xl border ${isDark ? 'border-white/5 bg-white/5' : 'border-black/5 bg-black/5'} hover:scale-105 transition-all duration-300`}
                     >
-                      <div className="flex items-center justify-between mb-3">
-                        <div className="flex items-center gap-3">
-                          <span className="text-2xl">{item.icon}</span>
-                          <span className="text-lg font-medium">{item.skill}</span>
+                      <div className="flex items-start gap-4">
+                        <span className="text-3xl mt-1">{item.icon}</span>
+                        <div className="flex-1">
+                          <h4 className="text-xl font-semibold mb-2">{item.skill}</h4>
+                          <p className={`text-sm ${isDark ? 'text-gray-300' : 'text-gray-600'} leading-relaxed`}>
+                            {item.description}
+                          </p>
                         </div>
-                        <span className="text-sm font-bold px-3 py-1 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 text-white">
-                          {item.level}%
-                        </span>
-                      </div>
-                      <div className={`w-full h-3 rounded-full ${isDark ? 'bg-gray-800' : 'bg-gray-200'} overflow-hidden`}>
-                        <motion.div
-                          initial={{ width: 0 }}
-                          whileInView={{ width: `${item.level}%` }}
-                          transition={{ delay: 1 + index * 0.1, duration: 1.2, ease: "easeOut" }}
-                          className="h-full rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 relative"
-                        >
-                          <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-transparent rounded-full"></div>
-                        </motion.div>
                       </div>
                     </motion.div>
                   ))}
@@ -207,7 +197,7 @@ const AboutSection = ({ isDark }: AboutSectionProps) => {
                       50+
                     </div>
                     <div className="text-sm font-light opacity-80">Projects Completed</div>
-                  </motion.div>
+                  </div>
                 </div>
               </motion.div>
             </motion.div>
