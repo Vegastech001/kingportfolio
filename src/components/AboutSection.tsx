@@ -1,4 +1,3 @@
-
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 
@@ -197,7 +196,7 @@ const AboutSection = ({ isDark }: AboutSectionProps) => {
                       50+
                     </div>
                     <div className="text-sm font-light opacity-80">Projects Completed</div>
-                  </div>
+                  </motion.div>
                 </div>
               </motion.div>
             </motion.div>
