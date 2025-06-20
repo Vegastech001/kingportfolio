@@ -1,3 +1,4 @@
+
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 
@@ -88,7 +89,7 @@ const AboutSection = ({ isDark }: AboutSectionProps) => {
                   {startAnimation && (
                     <p>
                       <TypewriterText
-                        text="Experienced Network Infrastructure Engineer with over 3 years of expertise in enterprise-level network architecture, artificial intelligence integration, and full-stack development."
+                        text="Experienced Network Infrastructure Engineer with over 3 years of expertise in cybersecurity, network architecture, and artificial intelligence integration. Specializing in securing enterprise-level systems and implementing cutting-edge security solutions."
                         delay={0}
                         isDark={isDark}
                       />
@@ -103,7 +104,7 @@ const AboutSection = ({ isDark }: AboutSectionProps) => {
                   {startAnimation && (
                     <p>
                       <TypewriterText
-                        text="Specialized in Python, C, Java programming languages with comprehensive knowledge of IoT ecosystems and emerging technologies. Passionate about leveraging cutting-edge AI solutions and maintaining a commitment to continuous professional development."
+                        text="Comprehensive expertise in Python for cybersecurity applications, network infrastructure security, and IoT ecosystem protection. Passionate about leveraging AI-driven security solutions and maintaining ethical standards in cybersecurity practices."
                         delay={0}
                         isDark={isDark}
                       />
@@ -113,12 +114,12 @@ const AboutSection = ({ isDark }: AboutSectionProps) => {
               </div>
 
               <div className={`p-8 rounded-2xl border ${isDark ? 'border-white/10 bg-white/5' : 'border-black/10 bg-black/5'} backdrop-blur-sm`}>
-                <h3 className="text-2xl font-bold mb-6">Innovation & Growth</h3>
+                <h3 className="text-2xl font-bold mb-6">Innovation & Security</h3>
                 <div className="text-lg leading-relaxed font-light">
                   {startAnimation && (
                     <p>
                       <TypewriterText
-                        text="I excel in AI prompting, rapid learning, and technology innovation. My expertise spans from network security implementations to machine learning model deployment, consistently delivering scalable solutions that drive business growth."
+                        text="Excel in AI prompting for security automation, ethical hacking methodologies, and critical thinking in threat assessment. My expertise spans from vulnerability assessment to implementing security frameworks, consistently delivering robust solutions that protect digital assets."
                         delay={0}
                         isDark={isDark}
                       />
@@ -128,7 +129,7 @@ const AboutSection = ({ isDark }: AboutSectionProps) => {
               </div>
             </motion.div>
 
-            {/* Right Column - Core Skills */}
+            {/* Right Column - Core Competencies */}
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -136,28 +137,64 @@ const AboutSection = ({ isDark }: AboutSectionProps) => {
               className="space-y-8"
             >
               <div className={`p-8 rounded-2xl border ${isDark ? 'border-white/10 bg-white/5' : 'border-black/10 bg-black/5'} backdrop-blur-sm`}>
-                <h3 className="text-3xl font-bold mb-8 text-center">Core Competencies</h3>
+                <h3 className="text-3xl font-bold mb-8 text-center bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+                  Core Competencies
+                </h3>
                 
                 <div className="space-y-6">
                   {[
-                    { skill: 'Network Infrastructure Engineering', icon: '🌐', description: 'Enterprise-level network architecture and security implementations' },
-                    { skill: 'AI & Machine Learning', icon: '🤖', description: 'Model development, deployment, and AI solution integration' },
-                    { skill: 'Full-Stack Python Development', icon: '🐍', description: 'Web applications, APIs, and data processing systems' },
-                    { skill: 'IoT Solutions Architecture', icon: '📡', description: 'Connected device ecosystems and smart technology integration' },
-                    { skill: 'Java Enterprise Development', icon: '☕', description: 'Scalable applications and enterprise software solutions' },
-                    { skill: 'Systems Programming in C', icon: '⚡', description: 'Low-level programming and performance optimization' },
+                    { 
+                      skill: 'Cybersecurity Fundamentals', 
+                      icon: '🛡️', 
+                      description: 'Network security implementation, penetration testing, and comprehensive vulnerability assessment methodologies'
+                    },
+                    { 
+                      skill: 'Python for Cybersecurity', 
+                      icon: '🐍', 
+                      description: 'Security automation scripting, malware analysis tools, and custom security solution development using specialized libraries'
+                    },
+                    { 
+                      skill: 'AI in Cybersecurity', 
+                      icon: '🤖', 
+                      description: 'AI-driven threat detection systems, anomaly identification, and intelligent security policy generation through advanced prompting'
+                    },
+                    { 
+                      skill: 'Network Infrastructure Security', 
+                      icon: '🌐', 
+                      description: 'Enterprise network architecture security, infrastructure hardening, and comprehensive security protocol implementation'
+                    },
+                    { 
+                      skill: 'Ethical Hacking', 
+                      icon: '🎯', 
+                      description: 'Penetration testing methodologies, vulnerability exploitation techniques, and comprehensive security assessment practices'
+                    },
+                    { 
+                      skill: 'Security Frameworks', 
+                      icon: '📋', 
+                      description: 'NIST Cybersecurity Framework, ISO 27001 compliance, and MITRE ATT&CK framework implementation for structured security approaches'
+                    },
                   ].map((item, index) => (
                     <motion.div
                       key={item.skill}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.8 + index * 0.1, duration: 0.6 }}
-                      className={`p-6 rounded-xl border ${isDark ? 'border-white/5 bg-white/5' : 'border-black/5 bg-black/5'} hover:scale-105 transition-all duration-300`}
+                      initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                      transition={{ delay: 0.8 + index * 0.15, duration: 0.6 }}
+                      whileHover={{ scale: 1.02, y: -2 }}
+                      className={`p-6 rounded-xl border ${isDark ? 'border-white/5 bg-white/5 hover:bg-white/10' : 'border-black/5 bg-black/5 hover:bg-black/10'} transition-all duration-300 cursor-pointer group relative overflow-hidden`}
                     >
-                      <div className="flex items-start gap-4">
-                        <span className="text-3xl mt-1">{item.icon}</span>
+                      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <div className="flex items-start gap-4 relative z-10">
+                        <motion.span 
+                          className="text-3xl mt-1"
+                          whileHover={{ scale: 1.2, rotate: 5 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          {item.icon}
+                        </motion.span>
                         <div className="flex-1">
-                          <h4 className="text-xl font-semibold mb-2">{item.skill}</h4>
+                          <h4 className="text-xl font-semibold mb-3 group-hover:text-blue-400 transition-colors duration-300">
+                            {item.skill}
+                          </h4>
                           <p className={`text-sm ${isDark ? 'text-gray-300' : 'text-gray-600'} leading-relaxed`}>
                             {item.description}
                           </p>
@@ -172,17 +209,18 @@ const AboutSection = ({ isDark }: AboutSectionProps) => {
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.5, duration: 0.8 }}
-                className={`p-8 rounded-2xl border ${isDark ? 'border-white/10 bg-white/5' : 'border-black/10 bg-black/5'} backdrop-blur-sm`}
+                transition={{ delay: 1.8, duration: 0.8 }}
+                className={`p-8 rounded-2xl border ${isDark ? 'border-white/10 bg-white/5' : 'border-black/10 bg-black/5'} backdrop-blur-sm relative overflow-hidden`}
               >
-                <h3 className="text-2xl font-bold text-center mb-8">Professional Metrics</h3>
-                <div className="grid grid-cols-2 gap-8">
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5" />
+                <h3 className="text-2xl font-bold text-center mb-8 relative z-10">Professional Metrics</h3>
+                <div className="grid grid-cols-2 gap-8 relative z-10">
                   <motion.div 
                     className="text-center group"
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.2 }}
                   >
-                    <div className="text-4xl font-bold mb-2 bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+                    <div className="text-4xl font-bold mb-2 bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300">
                       3+
                     </div>
                     <div className="text-sm font-light opacity-80">Years Experience</div>
@@ -192,7 +230,7 @@ const AboutSection = ({ isDark }: AboutSectionProps) => {
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.2 }}
                   >
-                    <div className="text-4xl font-bold mb-2 bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
+                    <div className="text-4xl font-bold mb-2 bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300">
                       50+
                     </div>
                     <div className="text-sm font-light opacity-80">Projects Completed</div>
