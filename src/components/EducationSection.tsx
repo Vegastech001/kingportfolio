@@ -78,7 +78,6 @@ const EducationSection = ({ isDark }: EducationSectionProps) => {
 
   return (
     <section id="education" className={`py-20 px-4 ${isDark ? 'bg-black' : 'bg-white'} relative overflow-hidden`}>
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5" />
       <div className="max-w-6xl mx-auto relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -86,24 +85,22 @@ const EducationSection = ({ isDark }: EducationSectionProps) => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+          <h2 className={`text-4xl md:text-5xl font-bold mb-4 ${isDark ? 'text-white' : 'text-black'}`}>
             Education & Skills
           </h2>
           <div className={`w-24 h-1 ${isDark ? 'bg-white' : 'bg-black'} mx-auto`} />
         </motion.div>
 
-        {/* Education Section - Full Width */}
+        {/* Education Section */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="mb-20"
         >
-          <h3 className="text-3xl font-bold flex items-center justify-center gap-3 mb-12">
-            <GraduationCap className="w-8 h-8 text-blue-500" />
-            <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
-              Academic Background
-            </span>
+          <h3 className={`text-3xl font-bold flex items-center justify-center gap-3 mb-12 ${isDark ? 'text-white' : 'text-black'}`}>
+            <GraduationCap className={`w-8 h-8 ${isDark ? 'text-white' : 'text-black'}`} />
+            <span>Academic Background</span>
           </h3>
           
           <div className="grid md:grid-cols-2 gap-8">
@@ -114,25 +111,34 @@ const EducationSection = ({ isDark }: EducationSectionProps) => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.2 }}
                 whileHover={{ scale: 1.02, y: -5 }}
-                className={`p-8 rounded-2xl border-2 ${isDark ? 'border-blue-500/20 bg-gradient-to-br from-blue-500/10 to-purple-500/10 hover:border-blue-500/40' : 'border-blue-500/20 bg-gradient-to-br from-blue-50 to-purple-50 hover:border-blue-500/40'} transition-all duration-500 cursor-pointer group relative overflow-hidden`}
+                className={`p-8 rounded-2xl border-2 transition-all duration-500 cursor-pointer group relative overflow-hidden ${
+                  isDark 
+                    ? 'border-white/20 bg-white/5 hover:border-white/40' 
+                    : 'border-black/20 bg-black/5 hover:border-black/40'
+                }`}
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="flex items-start gap-6 relative z-10">
                   <motion.div 
-                    className="p-4 rounded-full bg-gradient-to-r from-blue-500/20 to-purple-500/20 group-hover:from-blue-500/30 group-hover:to-purple-500/30 transition-all duration-500"
+                    className={`p-4 rounded-full transition-all duration-500 ${
+                      isDark ? 'bg-white/10 group-hover:bg-white/20' : 'bg-black/10 group-hover:bg-black/20'
+                    }`}
                     whileHover={{ rotate: 360, scale: 1.1 }}
                     transition={{ duration: 0.6 }}
                   >
-                    <BookOpen className="w-6 h-6 text-blue-500" />
+                    <BookOpen className={`w-6 h-6 ${isDark ? 'text-white' : 'text-black'}`} />
                   </motion.div>
                   <div className="flex-1">
-                    <h4 className="text-xl font-bold mb-2 group-hover:text-blue-500 transition-colors duration-300">
+                    <h4 className={`text-xl font-bold mb-2 transition-colors duration-300 ${
+                      isDark ? 'text-white group-hover:text-gray-300' : 'text-black group-hover:text-gray-700'
+                    }`}>
                       {edu.degree}
                     </h4>
-                    <p className={`${isDark ? 'text-gray-300' : 'text-gray-700'} mb-3 font-semibold text-lg`}>{edu.school}</p>
+                    <p className={`mb-3 font-semibold text-lg ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>{edu.school}</p>
                     <div className="flex items-center gap-6 text-sm mb-4">
-                      <span className={`${isDark ? 'text-gray-400' : 'text-gray-600'} font-medium`}>{edu.period}</span>
-                      <span className="font-bold text-purple-500 bg-gradient-to-r from-purple-500/20 to-blue-500/20 px-3 py-1 rounded-full">
+                      <span className={`font-medium ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>{edu.period}</span>
+                      <span className={`font-bold px-3 py-1 rounded-full ${
+                        isDark ? 'text-white bg-white/20' : 'text-black bg-black/20'
+                      }`}>
                         {edu.gpa}
                       </span>
                     </div>
@@ -145,7 +151,7 @@ const EducationSection = ({ isDark }: EducationSectionProps) => {
                           whileInView={{ opacity: 1, x: 0 }}
                           transition={{ delay: (index * 0.2) + (i * 0.1) }}
                         >
-                          <Award className="w-4 h-4 text-yellow-500 flex-shrink-0" />
+                          <Award className={`w-4 h-4 flex-shrink-0 ${isDark ? 'text-gray-400' : 'text-gray-600'}`} />
                           <span className="font-medium">{achievement}</span>
                         </motion.li>
                       ))}
@@ -195,67 +201,88 @@ const EducationSection = ({ isDark }: EducationSectionProps) => {
         </motion.div>
         */}
 
-        {/* Enhanced Professional Core Skills Section */}
+        {/* Professional Core Skills Section - New Minimalist Design */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="mt-16"
         >
-          <h3 className="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
-            Professional Core Skills
-          </h3>
-          <div className="grid gap-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <h3 className={`text-4xl font-bold mb-4 ${isDark ? 'text-white' : 'text-black'}`}>
+              Professional Core Skills
+            </h3>
+            <div className={`w-20 h-0.5 mx-auto ${isDark ? 'bg-white' : 'bg-black'}`}></div>
+          </motion.div>
+
+          {/* Skills List - Vertical Layout */}
+          <div className="max-w-4xl mx-auto space-y-8">
             {coreSkills.map((item, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.15 }}
-                whileHover={{ scale: 1.02, y: -5 }}
-                className={`p-8 rounded-2xl border-2 ${isDark ? 'border-blue-500/20 bg-gradient-to-br from-blue-500/10 to-purple-500/10 hover:border-blue-500/40' : 'border-blue-500/20 bg-gradient-to-br from-blue-50 to-purple-50 hover:border-blue-500/40'} transition-all duration-500 group relative overflow-hidden`}
+                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.15, duration: 0.6 }}
+                whileHover={{ y: -4 }}
+                className={`group relative p-8 rounded-xl border transition-all duration-300 ${
+                  isDark 
+                    ? 'border-white/20 bg-white/5 hover:border-white/40 hover:bg-white/10' 
+                    : 'border-black/20 bg-black/5 hover:border-black/40 hover:bg-black/10'
+                }`}
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="flex items-start gap-6 mb-6 relative z-10">
-                  <motion.div
-                    whileHover={{ rotate: 360, scale: 1.2 }}
-                    transition={{ duration: 0.6 }}
-                    className="p-4 rounded-2xl bg-gradient-to-r from-blue-500/20 to-purple-500/20 group-hover:from-blue-500/30 group-hover:to-purple-500/30 transition-all duration-500"
-                  >
-                    <item.icon className="w-8 h-8 text-blue-500" />
-                  </motion.div>
-                  <div className="flex-1">
-                    <div className="flex justify-between items-center mb-4">
-                      <h4 className="text-2xl font-bold group-hover:text-blue-500 transition-colors duration-300">
+                {/* Skill Header */}
+                <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center gap-6">
+                    <motion.div
+                      whileHover={{ rotate: 15, scale: 1.1 }}
+                      transition={{ duration: 0.3 }}
+                      className={`p-3 rounded-xl ${isDark ? 'bg-white/10' : 'bg-black/10'}`}
+                    >
+                      <item.icon className={`w-8 h-8 ${isDark ? 'text-white' : 'text-black'}`} />
+                    </motion.div>
+                    <div>
+                      <h4 className={`text-2xl font-bold ${isDark ? 'text-white group-hover:text-gray-300' : 'text-black group-hover:text-gray-700'} transition-colors duration-300`}>
                         {item.skill}
                       </h4>
-                      <motion.span 
-                        className="text-2xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent"
-                        whileHover={{ scale: 1.1 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        {item.level}%
-                      </motion.span>
-                    </div>
-                    <p className={`text-base ${isDark ? 'text-gray-300' : 'text-gray-600'} mb-4 leading-relaxed font-medium`}>
-                      {item.description}
-                    </p>
-                    <div className={`w-full h-4 rounded-full ${isDark ? 'bg-white/10' : 'bg-black/10'} overflow-hidden border border-blue-500/20`}>
-                      <motion.div
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${item.level}%` }}
-                        transition={{ delay: index * 0.15 + 0.5, duration: 2, ease: "easeOut" }}
-                        className="h-full bg-gradient-to-r from-blue-500 to-purple-500 rounded-full relative overflow-hidden"
-                      >
-                        <motion.div 
-                          className="absolute inset-0 bg-gradient-to-r from-white/30 to-transparent rounded-full"
-                          animate={{ x: [-100, 100] }}
-                          transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                        />
-                      </motion.div>
                     </div>
                   </div>
+                  <motion.span 
+                    className={`text-3xl font-bold ${isDark ? 'text-white' : 'text-black'}`}
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    {item.level}%
+                  </motion.span>
                 </div>
+
+                {/* Description */}
+                <p className={`text-base leading-relaxed font-medium mb-6 ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
+                  {item.description}
+                </p>
+
+                {/* Progress Bar */}
+                <div className={`w-full h-2 rounded-full overflow-hidden ${isDark ? 'bg-white/10' : 'bg-black/10'}`}>
+                  <motion.div
+                    initial={{ width: 0 }}
+                    whileInView={{ width: `${item.level}%` }}
+                    transition={{ delay: index * 0.15 + 0.5, duration: 1.5, ease: "easeOut" }}
+                    className={`h-full rounded-full relative overflow-hidden ${isDark ? 'bg-white' : 'bg-black'}`}
+                  >
+                    <motion.div 
+                      className={`absolute inset-0 rounded-full ${isDark ? 'bg-gradient-to-r from-white/30 to-transparent' : 'bg-gradient-to-r from-black/30 to-transparent'}`}
+                      animate={{ x: [-100, 100] }}
+                      transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                    />
+                  </motion.div>
+                </div>
+
+                {/* Bottom accent line */}
+                <div className={`absolute bottom-0 left-0 w-0 h-0.5 ${isDark ? 'bg-white' : 'bg-black'} group-hover:w-full transition-all duration-700 ease-out`}></div>
               </motion.div>
             ))}
           </div>
