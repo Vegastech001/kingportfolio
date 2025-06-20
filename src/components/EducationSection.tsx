@@ -46,31 +46,26 @@ const EducationSection = ({ isDark }: EducationSectionProps) => {
   const coreSkills = [
     { 
       skill: 'Prompt Engineering', 
-      level: 95, 
       icon: Brain,
       description: 'Advanced AI prompt crafting for cybersecurity automation and intelligent system interactions'
     },
     { 
       skill: 'Critical Thinking', 
-      level: 92, 
       icon: Shield,
       description: 'Analytical problem-solving approach for complex security challenges and threat assessment'
     },
     { 
       skill: 'Future Technologies Awareness', 
-      level: 88, 
       icon: Lightbulb,
       description: 'Deep understanding of emerging technologies and their security implications in evolving landscapes'
     },
     { 
       skill: 'Technology Adaptation', 
-      level: 90, 
       icon: GraduationCap,
       description: 'Rapid learning and adaptation to changing technological environments and security paradigms'
     },
     { 
       skill: 'Ethical Standards', 
-      level: 98, 
       icon: Award,
       description: 'Unwavering commitment to ethical practices in cybersecurity and professional conduct'
     }
@@ -201,7 +196,7 @@ const EducationSection = ({ isDark }: EducationSectionProps) => {
         </motion.div>
         */}
 
-        {/* Professional Core Skills Section - New Minimalist Design */}
+        {/* Professional Core Skills Section - Updated to match Core Competencies design */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -220,69 +215,44 @@ const EducationSection = ({ isDark }: EducationSectionProps) => {
             <div className={`w-20 h-0.5 mx-auto ${isDark ? 'bg-white' : 'bg-black'}`}></div>
           </motion.div>
 
-          {/* Skills List - Vertical Layout */}
-          <div className="max-w-4xl mx-auto space-y-8">
+          {/* Skills Grid - Matching Core Competencies Layout */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {coreSkills.map((item, index) => (
               <motion.div
-                key={index}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.15, duration: 0.6 }}
-                whileHover={{ y: -4 }}
-                className={`group relative p-8 rounded-xl border transition-all duration-300 ${
+                key={item.skill}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.3 + index * 0.1, duration: 0.5 }}
+                whileHover={{ y: -8, scale: 1.02 }}
+                className={`group relative p-6 rounded-xl border-2 transition-all duration-300 cursor-pointer ${
                   isDark 
                     ? 'border-white/20 bg-white/5 hover:border-white/40 hover:bg-white/10' 
                     : 'border-black/20 bg-black/5 hover:border-black/40 hover:bg-black/10'
                 }`}
               >
-                {/* Skill Header */}
-                <div className="flex items-center justify-between mb-6">
-                  <div className="flex items-center gap-6">
-                    <motion.div
-                      whileHover={{ rotate: 15, scale: 1.1 }}
-                      transition={{ duration: 0.3 }}
-                      className={`p-3 rounded-xl ${isDark ? 'bg-white/10' : 'bg-black/10'}`}
-                    >
-                      <item.icon className={`w-8 h-8 ${isDark ? 'text-white' : 'text-black'}`} />
-                    </motion.div>
-                    <div>
-                      <h4 className={`text-2xl font-bold ${isDark ? 'text-white group-hover:text-gray-300' : 'text-black group-hover:text-gray-700'} transition-colors duration-300`}>
-                        {item.skill}
-                      </h4>
-                    </div>
-                  </div>
-                  <motion.span 
-                    className={`text-3xl font-bold ${isDark ? 'text-white' : 'text-black'}`}
-                    whileHover={{ scale: 1.1 }}
+                {/* Skill Icon and Title */}
+                <div className="flex items-center gap-4 mb-4">
+                  <motion.div
+                    whileHover={{ rotate: 10, scale: 1.1 }}
                     transition={{ duration: 0.2 }}
+                    className={`w-12 h-12 rounded-lg flex items-center justify-center ${
+                      isDark ? 'bg-white/10' : 'bg-black/10'
+                    }`}
                   >
-                    {item.level}%
-                  </motion.span>
+                    <item.icon className={`w-6 h-6 ${isDark ? 'text-white' : 'text-black'}`} />
+                  </motion.div>
+                  <h4 className={`text-lg font-bold ${isDark ? 'text-white group-hover:text-gray-300' : 'text-black group-hover:text-gray-700'} transition-colors duration-300`}>
+                    {item.skill}
+                  </h4>
                 </div>
 
-                {/* Description */}
-                <p className={`text-base leading-relaxed font-medium mb-6 ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
+                {/* Skill Description */}
+                <p className={`text-sm leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
                   {item.description}
                 </p>
 
-                {/* Progress Bar */}
-                <div className={`w-full h-2 rounded-full overflow-hidden ${isDark ? 'bg-white/10' : 'bg-black/10'}`}>
-                  <motion.div
-                    initial={{ width: 0 }}
-                    whileInView={{ width: `${item.level}%` }}
-                    transition={{ delay: index * 0.15 + 0.5, duration: 1.5, ease: "easeOut" }}
-                    className={`h-full rounded-full relative overflow-hidden ${isDark ? 'bg-white' : 'bg-black'}`}
-                  >
-                    <motion.div 
-                      className={`absolute inset-0 rounded-full ${isDark ? 'bg-gradient-to-r from-white/30 to-transparent' : 'bg-gradient-to-r from-black/30 to-transparent'}`}
-                      animate={{ x: [-100, 100] }}
-                      transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                    />
-                  </motion.div>
-                </div>
-
-                {/* Bottom accent line */}
-                <div className={`absolute bottom-0 left-0 w-0 h-0.5 ${isDark ? 'bg-white' : 'bg-black'} group-hover:w-full transition-all duration-700 ease-out`}></div>
+                {/* Hover Effect Line */}
+                <div className={`absolute bottom-0 left-0 w-0 h-0.5 ${isDark ? 'bg-white' : 'bg-black'} group-hover:w-full transition-all duration-500 ease-out`}></div>
               </motion.div>
             ))}
           </div>
