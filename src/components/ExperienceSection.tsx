@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Briefcase, Calendar, MapPin } from 'lucide-react';
+import { Briefcase, MapPin, Award, Target, Users } from 'lucide-react';
 
 interface ExperienceSectionProps {
   isDark: boolean;
@@ -10,8 +10,10 @@ const ExperienceSection = ({ isDark }: ExperienceSectionProps) => {
     {
       title: "Tech Officer",
       company: "Vegas Recreation Nepal Pvt. Ltd.",
-      period: "2023 - Present",
+      status: "Current Position",
+      level: "Senior Level",
       location: "Nepal",
+      impact: "Leading IoT Infrastructure & Gaming Systems",
       description: [
         "Oversee IoT devices installation, maintenance and servicing",
         "Provide comprehensive IT tech support for all systems",
@@ -23,8 +25,10 @@ const ExperienceSection = ({ isDark }: ExperienceSectionProps) => {
     {
       title: "Business Owner & Leader",
       company: "Rejico (E-commerce Business)",
-      period: "2022 - 2023",
+      status: "Entrepreneurship",
+      level: "Founder & CEO",
       location: "Nepal",
+      impact: "Built E-commerce Team of 5+ Members",
       description: [
         "Founded and led e-commerce dropshipping business with 5-member team",
         "Developed and executed digital marketing strategies and campaigns",
@@ -36,8 +40,10 @@ const ExperienceSection = ({ isDark }: ExperienceSectionProps) => {
     {
       title: "Technical Support Specialist",
       company: "Bilo Computer Sales and Suppliers",
-      period: "2021 - 2022",
+      status: "Professional Growth",
+      level: "Specialist Level",
       location: "Nepal",
+      impact: "Enhanced Customer Technical Solutions",
       description: [
         "Provided comprehensive after-sales technical support to customers",
         "Resolved customer inquiries and technical issues efficiently",
@@ -102,19 +108,40 @@ const ExperienceSection = ({ isDark }: ExperienceSectionProps) => {
                 </div>
                 
                 <div className="flex-1">
-                  <div className="flex flex-col md:flex-row md:items-center justify-between mb-3">
-                    <div>
-                      <h3 className="text-xl font-bold">{exp.title}</h3>
-                      <p className={`text-lg ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>{exp.company}</p>
-                    </div>
-                    <div className={`flex items-center gap-4 text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'} mt-2 md:mt-0`}>
-                      <div className="flex items-center gap-1">
-                        <Calendar className="w-4 h-4" />
-                        <span>{exp.period}</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <MapPin className="w-4 h-4" />
-                        <span>{exp.location}</span>
+                  <div className="flex flex-col lg:flex-row lg:items-start justify-between mb-4">
+                    <div className="flex-1">
+                      <h3 className="text-xl font-bold mb-1">{exp.title}</h3>
+                      <p className={`text-lg font-semibold ${isDark ? 'text-gray-300' : 'text-gray-700'} mb-2`}>{exp.company}</p>
+                      
+                      {/* Professional Metrics */}
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
+                        <div className="flex items-center gap-2">
+                          <Award className="w-4 h-4 text-primary" />
+                          <span className={`text-sm font-medium ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                            {exp.level}
+                          </span>
+                        </div>
+                        
+                        <div className="flex items-center gap-2">
+                          <Target className="w-4 h-4 text-primary" />
+                          <span className={`text-sm font-medium ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                            {exp.status}
+                          </span>
+                        </div>
+                        
+                        <div className="flex items-center gap-2">
+                          <MapPin className="w-4 h-4 text-primary" />
+                          <span className={`text-sm font-medium ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                            {exp.location}
+                          </span>
+                        </div>
+                        
+                        <div className="flex items-center gap-2">
+                          <Users className="w-4 h-4 text-primary" />
+                          <span className={`text-sm font-medium ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                            {exp.impact}
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>
