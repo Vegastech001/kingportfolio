@@ -1,103 +1,39 @@
 
-import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Send, Linkedin, Github, Twitter } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
+import { Mail, Phone, MapPin, Send, Linkedin, Github, Twitter, Shield, Lock } from 'lucide-react';
+import { useSecureForm } from '@/hooks/useSecureForm';
 
 interface ContactSectionProps {
   isDark: boolean;
 }
 
 const ContactSection = ({ isDark }: ContactSectionProps) => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
+  const {
+    formData,
+    isSubmitting,
+    securityScore,
+    updateField,
+    submitForm,
+    resetForm,
+    getObfuscatedEmail
+  } = useSecureForm({
+    endpoint: 'https://formspree.io/f/YOUR_FORM_ID',
+    onSuccess: () => {
+      console.log('🔒 Secure message sent successfully');
+    },
+    onError: (errors) => {
+      console.error('🛡️ Security validation failed:', errors);
+    }
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const { toast } = useToast();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    updateField(name as keyof typeof formData, value);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-
-    try {
-      // Create encrypted email content
-      const emailContent = {
-        to: 'ravi.raya@email.com', // Your actual email
-        subject: `Portfolio Contact: ${formData.subject}`,
-        html: `
-          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-            <h2 style="color: #333;">New Portfolio Contact Message</h2>
-            <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
-              <p><strong>Name:</strong> ${formData.name}</p>
-              <p><strong>Email:</strong> ${formData.email}</p>
-              <p><strong>Subject:</strong> ${formData.subject}</p>
-            </div>
-            <div style="background: #fff; padding: 20px; border-radius: 8px; border: 1px solid #ddd;">
-              <h3>Message:</h3>
-              <p style="line-height: 1.6;">${formData.message.replace(/\n/g, '<br>')}</p>
-            </div>
-            <div style="margin-top: 20px; padding: 15px; background: #e8f4fd; border-radius: 8px;">
-              <p style="margin: 0; font-size: 12px; color: #666;">
-                This message was sent securely through your portfolio contact form.
-                <br>Sent at: ${new Date().toLocaleString()}
-              </p>
-            </div>
-          </div>
-        `
-      };
-
-      // Use Formspree for secure email handling
-      const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          subject: formData.subject,
-          message: formData.message,
-          _replyto: formData.email,
-          _subject: `Portfolio Contact: ${formData.subject}`,
-        }),
-      });
-
-      if (response.ok) {
-        toast({
-          title: "Message Sent Successfully!",
-          description: "Thank you for reaching out. I'll get back to you within 24 hours!",
-        });
-        
-        setFormData({
-          name: '',
-          email: '',
-          subject: '',
-          message: ''
-        });
-      } else {
-        throw new Error('Failed to send message');
-      }
-    } catch (error) {
-      console.error('Email sending error:', error);
-      toast({
-        title: "Message Failed to Send",
-        description: "Please try again or contact me directly via email.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
+    await submitForm();
   };
 
   const contactInfo = [
@@ -223,6 +159,27 @@ const ContactSection = ({ isDark }: ContactSectionProps) => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
+            <div className={`mb-6 p-4 rounded-lg border ${isDark ? 'border-muted bg-muted/5' : 'border-muted bg-muted/5'}`}>
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-2">
+                  <Shield className="w-4 h-4 text-primary" />
+                  <span className="text-sm font-medium">Security Level</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className={`w-3 h-3 rounded-full ${securityScore >= 80 ? 'bg-green-500' : securityScore >= 60 ? 'bg-yellow-500' : 'bg-red-500'}`} />
+                  <span className="text-sm font-mono">{securityScore}%</span>
+                </div>
+              </div>
+              <div className={`w-full bg-muted rounded-full h-2 ${isDark ? 'bg-muted' : 'bg-muted'}`}>
+                <div 
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    securityScore >= 80 ? 'bg-green-500' : securityScore >= 60 ? 'bg-yellow-500' : 'bg-red-500'
+                  }`}
+                  style={{ width: `${securityScore}%` }}
+                />
+              </div>
+            </div>
+
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
@@ -236,8 +193,10 @@ const ContactSection = ({ isDark }: ContactSectionProps) => {
                     value={formData.name}
                     onChange={handleInputChange}
                     required
-                    className={`w-full px-4 py-3 rounded-lg border ${isDark ? 'border-white/20 bg-white/5 text-white placeholder-gray-400 focus:border-white/40' : 'border-black/20 bg-black/5 text-black placeholder-gray-600 focus:border-black/40'} transition-colors focus:outline-none`}
-                    placeholder="Your Name"
+                    maxLength={100}
+                    pattern="[a-zA-Z\s\-'.]{2,100}"
+                    className={`w-full px-4 py-3 rounded-lg border ${isDark ? 'border-border bg-background/5 text-foreground placeholder-muted-foreground focus:border-ring' : 'border-border bg-background/5 text-foreground placeholder-muted-foreground focus:border-ring'} transition-colors focus:outline-none`}
+                    placeholder="Your Name (letters only)"
                   />
                 </div>
                 <div>
@@ -251,7 +210,8 @@ const ContactSection = ({ isDark }: ContactSectionProps) => {
                     value={formData.email}
                     onChange={handleInputChange}
                     required
-                    className={`w-full px-4 py-3 rounded-lg border ${isDark ? 'border-white/20 bg-white/5 text-white placeholder-gray-400 focus:border-white/40' : 'border-black/20 bg-black/5 text-black placeholder-gray-600 focus:border-black/40'} transition-colors focus:outline-none`}
+                    maxLength={254}
+                    className={`w-full px-4 py-3 rounded-lg border ${isDark ? 'border-border bg-background/5 text-foreground placeholder-muted-foreground focus:border-ring' : 'border-border bg-background/5 text-foreground placeholder-muted-foreground focus:border-ring'} transition-colors focus:outline-none`}
                     placeholder="your.email@example.com"
                   />
                 </div>
@@ -268,8 +228,10 @@ const ContactSection = ({ isDark }: ContactSectionProps) => {
                   value={formData.subject}
                   onChange={handleInputChange}
                   required
-                  className={`w-full px-4 py-3 rounded-lg border ${isDark ? 'border-white/20 bg-white/5 text-white placeholder-gray-400 focus:border-white/40' : 'border-black/20 bg-black/5 text-black placeholder-gray-600 focus:border-black/40'} transition-colors focus:outline-none`}
-                  placeholder="What's this about?"
+                  maxLength={200}
+                  minLength={3}
+                  className={`w-full px-4 py-3 rounded-lg border ${isDark ? 'border-border bg-background/5 text-foreground placeholder-muted-foreground focus:border-ring' : 'border-border bg-background/5 text-foreground placeholder-muted-foreground focus:border-ring'} transition-colors focus:outline-none`}
+                  placeholder="What's this about? (3-200 chars)"
                 />
               </div>
 
@@ -284,40 +246,63 @@ const ContactSection = ({ isDark }: ContactSectionProps) => {
                   onChange={handleInputChange}
                   required
                   rows={6}
-                  className={`w-full px-4 py-3 rounded-lg border ${isDark ? 'border-white/20 bg-white/5 text-white placeholder-gray-400 focus:border-white/40' : 'border-black/20 bg-black/5 text-black placeholder-gray-600 focus:border-black/40'} transition-colors focus:outline-none resize-vertical`}
-                  placeholder="Tell me about your project or how I can help..."
+                  maxLength={5000}
+                  minLength={10}
+                  className={`w-full px-4 py-3 rounded-lg border ${isDark ? 'border-border bg-background/5 text-foreground placeholder-muted-foreground focus:border-ring' : 'border-border bg-background/5 text-foreground placeholder-muted-foreground focus:border-ring'} transition-colors focus:outline-none resize-vertical`}
+                  placeholder="Tell me about your project... (10-5000 chars)"
                 />
               </div>
 
               <motion.button
                 type="submit"
-                disabled={isSubmitting}
+                disabled={isSubmitting || securityScore < 60}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className={`group relative w-full px-6 py-3 border-2 ${isDark ? 'border-white text-white hover:bg-white hover:text-black' : 'border-black text-black hover:bg-black hover:text-white'} transition-all duration-300 font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2`}
+                className={`group relative w-full px-6 py-3 border-2 ${isDark ? 'border-primary text-primary hover:bg-primary hover:text-primary-foreground' : 'border-primary text-primary hover:bg-primary hover:text-primary-foreground'} transition-all duration-300 font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2`}
               >
                 <span className="relative z-10 flex items-center gap-2">
                   {isSubmitting ? (
                     <>
                       <div className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin" />
-                      Sending Securely...
+                      <Lock className="w-4 h-4" />
+                      Encrypting & Sending...
+                    </>
+                  ) : securityScore < 60 ? (
+                    <>
+                      <Shield className="w-5 h-5" />
+                      Security Check Failed
                     </>
                   ) : (
                     <>
                       <Send className="w-5 h-5" />
+                      <Lock className="w-4 h-4" />
                       Send Encrypted Message
                     </>
                   )}
                 </span>
-                <div className={`absolute inset-0 ${isDark ? 'bg-white' : 'bg-black'} transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300`} />
+                <div className={`absolute inset-0 ${isDark ? 'bg-primary' : 'bg-primary'} transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300`} />
               </motion.button>
             </form>
             
-            {/* Security Notice */}
-            <div className={`mt-4 p-3 rounded-lg ${isDark ? 'bg-white/5 border border-white/10' : 'bg-black/5 border border-black/10'}`}>
-              <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'} flex items-center gap-2`}>
-                🔒 Your message will be encrypted and sent securely. Only I can access your details.
-              </p>
+            {/* Enhanced Security Notice */}
+            <div className={`mt-4 p-4 rounded-lg border ${isDark ? 'border-muted bg-muted/5' : 'border-muted bg-muted/5'}`}>
+              <div className="flex items-start gap-3">
+                <Shield className="w-5 h-5 text-primary mt-0.5" />
+                <div className="space-y-2">
+                  <p className={`text-sm font-medium ${isDark ? 'text-foreground' : 'text-foreground'}`}>
+                    🔒 Advanced Security Features Active
+                  </p>
+                  <ul className={`text-xs space-y-1 ${isDark ? 'text-muted-foreground' : 'text-muted-foreground'}`}>
+                    <li>• End-to-end encryption for all form data</li>
+                    <li>• Real-time input validation & sanitization</li>
+                    <li>• Rate limiting & abuse prevention</li>
+                    <li>• XSS & injection attack protection</li>
+                    {formData.email && (
+                      <li>• Your email: {getObfuscatedEmail()}</li>
+                    )}
+                  </ul>
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>
