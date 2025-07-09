@@ -44,12 +44,6 @@ const ContactSection = ({ isDark }: ContactSectionProps) => {
       href: "mailto:ravi.raya@email.com"
     },
     {
-      icon: <Phone className="w-5 h-5" />,
-      label: "Phone",
-      value: "+977 98XXXXXXXX",
-      href: "tel:+97798XXXXXXXX"
-    },
-    {
       icon: <MapPin className="w-5 h-5" />,
       label: "Location",
       value: "Nepal",
