@@ -30,21 +30,56 @@ const ContactSection = ({ isDark }: ContactSectionProps) => {
   const [currentQuote, setCurrentQuote] = useState<{ text: string; author: string } | null>(null);
 
   const quotes = [
-    // Technology
+    // Technology (25 quotes)
     { text: "The advance of technology is based on making it fit in so that you don't really even notice it, so it's part of everyday life.", author: "Bill Gates" },
     { text: "Technology is best when it brings people together.", author: "Matt Mullenweg" },
     { text: "The real problem is not whether machines think but whether men do.", author: "B.F. Skinner" },
     { text: "The computer was born to solve problems that did not exist before.", author: "Bill Gates" },
     { text: "Any sufficiently advanced technology is indistinguishable from magic.", author: "Arthur C. Clarke" },
-    
-    // AI & Machine Learning
+    { text: "Technology is nothing. What's important is that you have a faith in people.", author: "Steve Jobs" },
+    { text: "The great growling engine of change - technology.", author: "Alvin Toffler" },
+    { text: "Technology is a useful servant but a dangerous master.", author: "Christian Lous Lange" },
+    { text: "We are stuck with technology when what we really want is just stuff that works.", author: "Douglas Adams" },
+    { text: "The science of today is the technology of tomorrow.", author: "Edward Teller" },
+    { text: "Technology will not replace great teachers, but technology in the hands of great teachers can be transformational.", author: "George Couros" },
+    { text: "The technology you use impresses no one. The experience you create with it is everything.", author: "Sean Gerety" },
+    { text: "It has become appallingly obvious that our technology has exceeded our humanity.", author: "Albert Einstein" },
+    { text: "Technology is just a tool. In terms of getting the kids working together and motivating them, the teacher is the most important.", author: "Bill Gates" },
+    { text: "The first rule of any technology used in a business is that automation applied to an efficient operation will magnify the efficiency.", author: "Bill Gates" },
+    { text: "Technology is the campfire around which we tell our stories.", author: "Laurie Anderson" },
+    { text: "If we continue to develop our technology without wisdom or prudence, our servant may prove to be our executioner.", author: "Omar Bradley" },
+    { text: "The human spirit must prevail over technology.", author: "Albert Einstein" },
+    { text: "Technology is best when it's invisible.", author: "John Thackara" },
+    { text: "One machine can do the work of fifty ordinary men. No machine can do the work of one extraordinary man.", author: "Elbert Hubbard" },
+    { text: "Programs must be written for people to read, and only incidentally for machines to execute.", author: "Harold Abelson" },
+    { text: "The Internet is becoming the town square for the global village of tomorrow.", author: "Bill Gates" },
+    { text: "Technology is not just the thing that makes your life easier. It's the thing that makes you who you are.", author: "Anonymous" },
+    { text: "Innovation is the outcome of a habit, not a random act.", author: "Sukant Ratnakar" },
+    { text: "To err is human, but to really foul things up you need a computer.", author: "Paul Ehrlich" },
+
+    // AI & Machine Learning (20 quotes)
     { text: "Artificial intelligence is the new electricity.", author: "Andrew Ng" },
     { text: "The question isn't whether AI will replace humans, but whether humans will enhance themselves with AI.", author: "Anonymous" },
     { text: "Machine learning is the science of getting computers to learn and act like humans do.", author: "Katharine Jarmul" },
     { text: "I think AI is akin to building a rocket ship. You need a huge engine and a lot of fuel.", author: "Andrew Ng" },
     { text: "The development of full artificial intelligence could spell the end of the human race.", author: "Stephen Hawking" },
-    
-    // Life & Philosophy
+    { text: "AI is likely to be either the best or worst thing to happen to humanity.", author: "Stephen Hawking" },
+    { text: "By far, the greatest danger of Artificial Intelligence is that people conclude too early that they understand it.", author: "Eliezer Yudkowsky" },
+    { text: "The real question is, when will we draft an artificial intelligence bill of rights? What will that consist of? And who will get to decide that?", author: "Gray Scott" },
+    { text: "Machine intelligence is the last invention that humanity will ever need to make.", author: "Nick Bostrom" },
+    { text: "I visualize a time when we will be to robots what dogs are to humans.", author: "Claude Shannon" },
+    { text: "AI will probably most likely lead to the end of the world, but in the meantime, there'll be great companies.", author: "Sam Altman" },
+    { text: "The pace of progress in artificial intelligence is incredibly fast.", author: "Elon Musk" },
+    { text: "Artificial intelligence would be the ultimate version of Google.", author: "Larry Page" },
+    { text: "We're going to become cyborgs. The question is not whether we'll merge with AI, but how quickly.", author: "Elon Musk" },
+    { text: "Success in creating AI would be the biggest event in human history.", author: "Stephen Hawking" },
+    { text: "What we want is a machine that can learn from experience.", author: "Alan Turing" },
+    { text: "The automation of factories has already decimated jobs in traditional manufacturing.", author: "Bill Gates" },
+    { text: "I'm increasingly inclined to think that there should be some regulatory oversight, maybe at the national and international level.", author: "Elon Musk" },
+    { text: "Artificial intelligence will reach human levels by around 2029.", author: "Ray Kurzweil" },
+    { text: "Everything we love about civilization is a product of intelligence.", author: "Max Tegmark" },
+
+    // Life & Philosophy (25 quotes)
     { text: "Life is what happens to you while you're busy making other plans.", author: "John Lennon" },
     { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
     { text: "In the middle of difficulty lies opportunity.", author: "Albert Einstein" },
@@ -53,8 +88,25 @@ const ContactSection = ({ isDark }: ContactSectionProps) => {
     { text: "Life isn't about finding yourself. Life is about creating yourself.", author: "George Bernard Shaw" },
     { text: "The unexamined life is not worth living.", author: "Socrates" },
     { text: "Be yourself; everyone else is already taken.", author: "Oscar Wilde" },
-    
-    // Hard Work & Success
+    { text: "Two things are infinite: the universe and human stupidity; and I'm not sure about the universe.", author: "Albert Einstein" },
+    { text: "You only live once, but if you do it right, once is enough.", author: "Mae West" },
+    { text: "We are what we repeatedly do. Excellence, then, is not an act, but a habit.", author: "Aristotle" },
+    { text: "The only true wisdom is in knowing you know nothing.", author: "Socrates" },
+    { text: "Life is 10% what happens to you and 90% how you react to it.", author: "Charles R. Swindoll" },
+    { text: "The greatest glory in living lies not in never falling, but in rising every time we fall.", author: "Nelson Mandela" },
+    { text: "The way to happiness lies neither in pleasure nor in pain, but in the middle way.", author: "Buddha" },
+    { text: "Everything you've ever wanted is on the other side of fear.", author: "George Addair" },
+    { text: "Life shrinks or expands in proportion to one's courage.", author: "Anaïs Nin" },
+    { text: "The meaning of life is to find your gift. The purpose of life is to give it away.", author: "Pablo Picasso" },
+    { text: "Yesterday is history, tomorrow is a mystery, today is a gift.", author: "Eleanor Roosevelt" },
+    { text: "Don't count the days, make the days count.", author: "Muhammad Ali" },
+    { text: "Life begins at the end of your comfort zone.", author: "Neale Donald Walsch" },
+    { text: "The good life is one inspired by love and guided by knowledge.", author: "Bertrand Russell" },
+    { text: "Life is not measured by the number of breaths we take, but by the moments that take our breath away.", author: "Maya Angelou" },
+    { text: "The secret to getting ahead is getting started.", author: "Mark Twain" },
+    { text: "Life is either a daring adventure or nothing at all.", author: "Helen Keller" },
+
+    // Hard Work & Success (15 quotes)
     { text: "There is no substitute for hard work.", author: "Thomas Edison" },
     { text: "Success is 1% inspiration and 99% perspiration.", author: "Thomas Edison" },
     { text: "The only place where success comes before work is in the dictionary.", author: "Vidal Sassoon" },
@@ -62,8 +114,16 @@ const ContactSection = ({ isDark }: ContactSectionProps) => {
     { text: "Opportunities don't happen. You create them.", author: "Chris Grosser" },
     { text: "Success is not final, failure is not fatal: it is the courage to continue that counts.", author: "Winston Churchill" },
     { text: "The way to get started is to quit talking and begin doing.", author: "Walt Disney" },
-    
-    // Great Minds
+    { text: "Don't be afraid to give up the good to go for the great.", author: "John D. Rockefeller" },
+    { text: "The road to success and the road to failure are almost exactly the same.", author: "Colin R. Davis" },
+    { text: "Success is walking from failure to failure with no loss of enthusiasm.", author: "Winston Churchill" },
+    { text: "The difference between ordinary and extraordinary is that little extra.", author: "Jimmy Johnson" },
+    { text: "Success isn't just about what you accomplish in your life, it's about what you inspire others to do.", author: "Unknown" },
+    { text: "Don't wish it were easier; wish you were better.", author: "Jim Rohn" },
+    { text: "The successful warrior is the average man with laser-like focus.", author: "Bruce Lee" },
+    { text: "Success is the sum of small efforts repeated day in and day out.", author: "Robert Collier" },
+
+    // Great Minds & Inspiration (15 quotes)
     { text: "Stay hungry, stay foolish.", author: "Steve Jobs" },
     { text: "Imagination is more important than knowledge.", author: "Albert Einstein" },
     { text: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt" },
@@ -71,7 +131,14 @@ const ContactSection = ({ isDark }: ContactSectionProps) => {
     { text: "Innovation distinguishes between a leader and a follower.", author: "Steve Jobs" },
     { text: "The only impossible journey is the one you never begin.", author: "Tony Robbins" },
     { text: "Your limitation—it's only your imagination.", author: "Anonymous" },
-    { text: "What lies behind us and what lies before us are tiny matters compared to what lies within us.", author: "Ralph Waldo Emerson" }
+    { text: "What lies behind us and what lies before us are tiny matters compared to what lies within us.", author: "Ralph Waldo Emerson" },
+    { text: "Whether you think you can or you think you can't, you're right.", author: "Henry Ford" },
+    { text: "The best time to plant a tree was 20 years ago. The second best time is now.", author: "Chinese Proverb" },
+    { text: "A person who never made a mistake never tried anything new.", author: "Albert Einstein" },
+    { text: "The only person you are destined to become is the person you decide to be.", author: "Ralph Waldo Emerson" },
+    { text: "What doesn't kill you makes you stronger.", author: "Friedrich Nietzsche" },
+    { text: "Believe you can and you're halfway there.", author: "Theodore Roosevelt" },
+    { text: "The mind is everything. What you think you become.", author: "Buddha" }
   ];
 
   useEffect(() => {
