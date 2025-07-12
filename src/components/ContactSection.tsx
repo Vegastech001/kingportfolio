@@ -1,7 +1,8 @@
 
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Send, Linkedin, Github, Twitter, Shield, Lock } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Linkedin, Github, Twitter, Shield, Lock, Quote } from 'lucide-react';
 import { useSecureForm } from '@/hooks/useSecureForm';
+import { useState, useEffect } from 'react';
 
 interface ContactSectionProps {
   isDark: boolean;
@@ -25,6 +26,62 @@ const ContactSection = ({ isDark }: ContactSectionProps) => {
       console.error('🛡️ Security validation failed:', errors);
     }
   });
+
+  const [currentQuote, setCurrentQuote] = useState<{ text: string; author: string } | null>(null);
+
+  const quotes = [
+    // Technology
+    { text: "The advance of technology is based on making it fit in so that you don't really even notice it, so it's part of everyday life.", author: "Bill Gates" },
+    { text: "Technology is best when it brings people together.", author: "Matt Mullenweg" },
+    { text: "The real problem is not whether machines think but whether men do.", author: "B.F. Skinner" },
+    { text: "The computer was born to solve problems that did not exist before.", author: "Bill Gates" },
+    { text: "Any sufficiently advanced technology is indistinguishable from magic.", author: "Arthur C. Clarke" },
+    
+    // AI & Machine Learning
+    { text: "Artificial intelligence is the new electricity.", author: "Andrew Ng" },
+    { text: "The question isn't whether AI will replace humans, but whether humans will enhance themselves with AI.", author: "Anonymous" },
+    { text: "Machine learning is the science of getting computers to learn and act like humans do.", author: "Katharine Jarmul" },
+    { text: "I think AI is akin to building a rocket ship. You need a huge engine and a lot of fuel.", author: "Andrew Ng" },
+    { text: "The development of full artificial intelligence could spell the end of the human race.", author: "Stephen Hawking" },
+    
+    // Life & Philosophy
+    { text: "Life is what happens to you while you're busy making other plans.", author: "John Lennon" },
+    { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
+    { text: "In the middle of difficulty lies opportunity.", author: "Albert Einstein" },
+    { text: "Life is really simple, but we insist on making it complicated.", author: "Confucius" },
+    { text: "The purpose of our lives is to be happy.", author: "Dalai Lama" },
+    { text: "Life isn't about finding yourself. Life is about creating yourself.", author: "George Bernard Shaw" },
+    { text: "The unexamined life is not worth living.", author: "Socrates" },
+    { text: "Be yourself; everyone else is already taken.", author: "Oscar Wilde" },
+    
+    // Hard Work & Success
+    { text: "There is no substitute for hard work.", author: "Thomas Edison" },
+    { text: "Success is 1% inspiration and 99% perspiration.", author: "Thomas Edison" },
+    { text: "The only place where success comes before work is in the dictionary.", author: "Vidal Sassoon" },
+    { text: "Hard work beats talent when talent doesn't work hard.", author: "Tim Notke" },
+    { text: "Opportunities don't happen. You create them.", author: "Chris Grosser" },
+    { text: "Success is not final, failure is not fatal: it is the courage to continue that counts.", author: "Winston Churchill" },
+    { text: "The way to get started is to quit talking and begin doing.", author: "Walt Disney" },
+    
+    // Great Minds
+    { text: "Stay hungry, stay foolish.", author: "Steve Jobs" },
+    { text: "Imagination is more important than knowledge.", author: "Albert Einstein" },
+    { text: "The future belongs to those who believe in the beauty of their dreams.", author: "Eleanor Roosevelt" },
+    { text: "It is during our darkest moments that we must focus to see the light.", author: "Aristotle" },
+    { text: "Innovation distinguishes between a leader and a follower.", author: "Steve Jobs" },
+    { text: "The only impossible journey is the one you never begin.", author: "Tony Robbins" },
+    { text: "Your limitation—it's only your imagination.", author: "Anonymous" },
+    { text: "What lies behind us and what lies before us are tiny matters compared to what lies within us.", author: "Ralph Waldo Emerson" }
+  ];
+
+  useEffect(() => {
+    const getRandomQuote = () => {
+      const randomIndex = Math.floor(Math.random() * quotes.length);
+      setCurrentQuote(quotes[randomIndex]);
+    };
+    
+    getRandomQuote();
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -145,6 +202,29 @@ const ContactSection = ({ isDark }: ContactSectionProps) => {
                 ))}
               </div>
             </div>
+
+            {/* Inspirational Quote */}
+            {currentQuote && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
+                className={`mt-8 p-6 rounded-lg border ${isDark ? 'border-white/20 bg-white/5' : 'border-black/20 bg-black/5'}`}
+              >
+                <div className="flex items-start gap-4">
+                  <Quote className={`w-6 h-6 mt-1 ${isDark ? 'text-white/60' : 'text-black/60'} flex-shrink-0`} />
+                  <div>
+                    <p className={`text-lg italic leading-relaxed mb-3 ${isDark ? 'text-gray-200' : 'text-gray-800'}`}>
+                      "{currentQuote.text}"
+                    </p>
+                    <p className={`text-sm font-medium ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                      — {currentQuote.author}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            )}
           </motion.div>
 
           {/* Contact Form */}
