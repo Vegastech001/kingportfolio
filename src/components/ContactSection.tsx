@@ -277,27 +277,6 @@ const ContactSection = ({ isDark }: ContactSectionProps) => {
                 <div className={`absolute inset-0 ${isDark ? 'bg-primary' : 'bg-primary'} transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300`} />
               </motion.button>
             </form>
-            
-            {/* Enhanced Security Notice */}
-            <div className={`mt-4 p-4 rounded-lg border ${isDark ? 'border-muted bg-muted/5' : 'border-muted bg-muted/5'}`}>
-              <div className="flex items-start gap-3">
-                <Shield className="w-5 h-5 text-primary mt-0.5" />
-                <div className="space-y-2">
-                  <p className={`text-sm font-medium ${isDark ? 'text-foreground' : 'text-foreground'}`}>
-                    🔒 Advanced Security Features Active
-                  </p>
-                  <ul className={`text-xs space-y-1 ${isDark ? 'text-muted-foreground' : 'text-muted-foreground'}`}>
-                    <li>• End-to-end encryption for all form data</li>
-                    <li>• Real-time input validation & sanitization</li>
-                    <li>• Rate limiting & abuse prevention</li>
-                    <li>• XSS & injection attack protection</li>
-                    {formData.email && (
-                      <li>• Your email: {getObfuscatedEmail()}</li>
-                    )}
-                  </ul>
-                </div>
-              </div>
-            </div>
           </motion.div>
         </div>
 
