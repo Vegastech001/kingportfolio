@@ -252,7 +252,7 @@ const ContactSection = ({ isDark }: ContactSectionProps) => {
                 disabled={isSubmitting || securityScore < 60}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className={`group relative w-full px-6 py-3 border-2 ${isDark ? 'border-primary text-primary hover:bg-primary hover:text-primary-foreground' : 'border-primary text-primary hover:bg-primary hover:text-primary-foreground'} transition-all duration-300 font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2`}
+                className={`group relative w-full px-6 py-3 border-2 ${isDark ? 'border-white text-white hover:bg-white hover:text-black' : 'border-black text-black hover:bg-black hover:text-white'} transition-all duration-300 font-medium disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2`}
               >
                 <span className="relative z-10 flex items-center gap-2">
                   {isSubmitting ? (
