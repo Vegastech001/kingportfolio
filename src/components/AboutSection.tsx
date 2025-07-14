@@ -83,6 +83,21 @@ const AboutSection = ({ isDark }: AboutSectionProps) => {
       icon: '📋', 
       description: 'NIST Cybersecurity Framework, ISO 27001 compliance, and MITRE ATT&CK framework implementation for structured security approaches'
     },
+    { 
+      skill: 'Cloud Security', 
+      icon: '☁️', 
+      description: 'AWS, Azure, and GCP security architecture, cloud infrastructure protection, container security, and serverless security implementation'
+    },
+    { 
+      skill: 'Risk Assessment', 
+      icon: '⚖️', 
+      description: 'Comprehensive risk analysis, threat modeling, business impact assessment, and vulnerability management across enterprise environments'
+    },
+    { 
+      skill: 'Compliance & Governance', 
+      icon: '📊', 
+      description: 'GDPR, SOX, HIPAA compliance implementation, security audit preparation, and regulatory framework adherence for enterprise systems'
+    },
   ];
 
   return (
