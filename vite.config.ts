@@ -4,6 +4,7 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
+base: '/kingportfolio/'
 export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
